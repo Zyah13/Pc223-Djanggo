@@ -1,0 +1,60 @@
+{% extends 'studentEntry/base.html' %}
+
+{% block content %}
+<form class="form-inline custom-search-form mt-3 mr-auto ml-3">
+    <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-light my-2 my-sm-0 search-btn" type="submit" style="background-color: rgba(4, 7, 32, .80);">
+        <i class="fa-solid fa-search"></i></button>
+</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            {% if studentEntry %}
+            <div class="card bg-light ms-4 me-4 mb-4">
+                <div class="card-header" style="font-weight: bold;">
+                    <i class="fa-solid fa-list fa-lg" style="color: #040720;"></i> Student Records
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID Number</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Course</th>
+                    <th>Year Level</th>
+                    <th>Email Address</th>
+                    <th>Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in studentEntry %}
+                <tr>
+                    <td>{{ student.id_number }}</td>
+                    <td>{{ student.lastname|upper }}, {{ student.firstname|upper }} {{ student.middle_initial|default_if_none:""|upper }}. </td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.course }}</td>
+                    <td>{{ student.year_level }}</td>
+                    <td>{{ student.email_address }}</td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <a href="{% url 'detail' student.id %}" class="text-info">
+                            <i class="fas fa-info-circle fa-lg" style="color: #000;" onmouseover="this.style.color=' #7BCCB5'" onmouseout="this.style.color='#000'"></i>
+                        </a>
+                </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+{% else %}
+<h5 class="alert alert-primary ms-4 me-4" style="margin-top: 20px;">No Student Records</h5>
+{% endif %}
+</div>
+</div>
+</div>
+
+{% endblock content %}
